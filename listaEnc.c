@@ -8,12 +8,13 @@ struct lista{
     Lista anterior;
     Lista proximo;
     int teste;
+    //LEMBRETE: REMOVER TESTE NA FINALIZACAO
 };
 
 Lista criar(int v){
     /**
      * alocar memoria
-     * funcao para pegar informacoes
+     * funcao para pegar informacoes (funcao)
      * ligar ant e prox com ele mesmo
     **/
     Lista novo = malloc(sizeof(Lista));
@@ -33,7 +34,7 @@ Lista insercao(Lista l, int v){
      * funcao de criacao de elemento
      * verificar se eh o primeiro
      * colocar na posicao correta
-     * ordem alfabetica
+     * ordem alfabetica em relacao ao titulo
     **/
 
    Lista novo = criar(v);
@@ -51,24 +52,46 @@ Lista insercao(Lista l, int v){
    return novo;
 }
 
-Lista retira(/*endereco da lista*/){
+Lista retira(Lista l){
     /**
-     * remocao do endereco
      * prox->ant liga com ant
      * ant->prox liga com prox
+     * cria auxiliar com o endereco de l->prox
+     * retorna auxiliar
     **/
 }
 
-void libera(/*endereco da lista*/){
+void atualizaInfo(Lista l, Info id){
+    /**
+     * iguala as informacoes da l->i com a info
+     * nao sei se vai ser necessario
+    **/
+}
+
+Info informacoes(Lista l){
+    /**
+     * retornar l->i
+    **/
+}
+
+void libera(Lista l){
     /**
      * loop para liberar toda a memoria
      * condicao de parada
     **/
 }
 
-void imprimeAtual(/*endereco do atual*/){
+void imprimeAtual(Lista l){
     /**
      * recebe info
      * imprime
+    **/
+}
+
+int tamLista(Lista l){
+    /**
+     * contador de todas os elementos
+     * loop infinito
+     * condicao de parada
     **/
 }
