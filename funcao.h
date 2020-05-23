@@ -1,15 +1,25 @@
 #ifndef FUNCAO_H_INCLUDE
 #define FUNCAO_H_INCLUDE
 
-typedef struct info{
-    char* titulo;
-    char* tempo;
-    char* ingredientes;
-    char* modo;
-    char* criador;
-    float nota;
-    int vezes;
-}*Info;
+typedef struct lista* Lista;
+
+typedef struct info* Info;
+
+Lista criar(int v);
+
+Lista insercao(Lista l);
+
+Lista retira(Lista l);
+
+void atualizaInfo(Lista l, Info id);
+
+Info informacoes(Lista l);
+
+void libera(Lista l);
+
+void imprimeAtual(Lista l);
+
+int tamLista(Lista l);
 
 void menu(char* e, Lista l);
 

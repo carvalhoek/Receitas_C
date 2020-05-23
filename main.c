@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "funcao.h"
-#include "listaEnc.h"
 
 
 int main(){
@@ -40,6 +39,8 @@ int main(){
             case 'i':
                 printf("inserindo uma nova pagina\n");
                 //funcao de insercao de elemento da lista (listaEnc)
+                receitaAtual = insercao(receitaAtual);
+                imprimeAtual(receitaAtual);
                 break;
             case 's':
                 printf("Saindo do livro\n");
