@@ -50,23 +50,29 @@ Lista insercao(Lista l){
     int v;
     printf("Digite o valor: ");
     scanf("%d", &v);
-    printf("%c", &lixo);
+    scanf("%c", &lixo);
 
     Lista novo = criar(v);
 
+    printf("novo criado\n");
+
     if(l != NULL){
+        printf("entrei na condicao\n");
         Lista ant = l;
         Lista prox = l->proximo;
 
-        while(v > prox->teste){
+        while(v > prox->teste && prox != l){
            ant = ant->proximo;
            prox = ant->proximo;
         }
 
         novo->anterior = ant;
         novo->proximo = prox;
-    }
+        ant->proximo = novo;
+        prox->anterior = novo;
 
+    }
+    
     return novo;
 }
 
@@ -104,6 +110,7 @@ void imprimeAtual(Lista l){
      * recebe info
      * imprime
     **/
+    printf("imprimindo valores\n");
     Lista aux = l;
     do{
         printf("teste = %d\n", aux->teste);

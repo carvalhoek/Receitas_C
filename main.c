@@ -3,7 +3,7 @@
 
 
 int main(){
-    Lista receitaAtual;
+    Lista receitaAtual = NULL;
     char escolha;
 
     /**
