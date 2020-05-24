@@ -3,7 +3,8 @@
 
 
 int main(){
-    Lista receitaAtual = NULL;
+    Lista* receitaPrimeira = NULL;
+    Lista* receitaAtual = NULL;
     char escolha;
 
     /**
@@ -17,12 +18,9 @@ int main(){
         menu(&escolha, receitaAtual);
         switch(escolha){
             case 'a':
-                printf("Indo pra pagina anterior\n");
-                //funcao para ir pro elemento anterior da lista (listaEnc)
-                break;
             case 'p':
-                printf("Indo pra pagina posterior\n");
                 //funcao para ir pro elemento posterior da lista da lista (listaEnc)
+                receitaAtual = altera(receitaAtual, escolha);
                 break;
             case 'u':
                 printf("Utilizando pra pagina atual\n");
@@ -39,8 +37,12 @@ int main(){
             case 'i':
                 printf("inserindo uma nova pagina\n");
                 //funcao de insercao de elemento da lista (listaEnc)
-                receitaAtual = insercao(receitaAtual);
-                imprimeAtual(receitaAtual);
+                if(receitaPrimeira == NULL){
+                    receitaPrimeira = insercao(receitaPrimeira);
+                    receitaAtual = receitaPrimeira;
+                }
+                else
+                    receitaPrimeira = insercao(receitaPrimeira);
                 break;
             case 's':
                 printf("Saindo do livro\n");
@@ -59,6 +61,8 @@ int main(){
      * liberacao de de variaveis
      * funcao de liberacao de lista (listaEnc)
     **/
+
+    libera(receitaAtual);
 
     return 0;
 }
