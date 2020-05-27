@@ -31,7 +31,7 @@ int tamLista(Lista* l);
 
 void menu(char* e, Lista* l);
 
-Lista* utilizar(Lista* l);
+void utilizar(Lista* l);
 
 Lista* modificar(Lista* l);
 

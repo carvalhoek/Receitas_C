@@ -146,7 +146,7 @@ void imprimeAtual(Lista* l){ //FEITO
     printf("Ingredientes: %s\n", aux->ingredientes);
     printf("Modo de preparo: %s\n", aux->modo);
     printf("Criador: %s\n", aux->criador);
-    printf("Nota: %.2f\n", aux->nota);
+    printf("Nota: %.2f/5\n", aux->nota);
     printf("Vezes utilizada: %d\n", aux->vezes);
 }
 
@@ -174,16 +174,29 @@ void menu(char* e, Lista* l){
     fflush(stdin);
 }
 
-Lista* utilizar(Lista* l){
+void utilizar(Lista* l){
     /**
-     * criar uma variavel para pegar info*rmacoes do elemento da lista*
-     * funcao para pegar info*rmacoes existentes do elemento
+     * criar uma variavel para pegar informacoes do elemento da lista
+     * funcao para pegar informacoes existentes do elemento
      * perguntar a nota que o usuario da para a receita utilizada agora
      * adicionar em um a quantidade de vezes utilizada
      * fazer uma media com a nota ja existente, utiliizando a quantidade de vezes utilizada
-     * colocar a nova info* no elemento da lista*
-     * retornar o elemento modificado da lista* (ou nao, nao sei se precisa)
+     * colocar a nova info no elemento da lista
+     * retornar o elemento modificado da lista (ou nao, nao sei se precisa)
     **/
+
+    Info* aux = l->i;
+    char lixo;
+
+    aux->nota *= aux->vezes;
+    aux->vezes++;
+
+    float notaMais;
+    printf("Digite a nota que da para a receita utilizada (0-5): ");
+    scanf("%f", &notaMais);
+    scanf("%c", &lixo);
+
+    aux->nota = (aux->nota+notaMais)/aux->vezes;
 }
 
 Lista* modificar(Lista* l){

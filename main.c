@@ -24,7 +24,8 @@ int main(){
                 break;
             case 'u':
                 printf("Utilizando pra pagina atual\n");
-                //funcao de utilizacao de receita (funcao)
+                //funcao de utilizacao de receita
+                utilizar(receitaAtual);
                 break;
             case 'm':
                 printf("Modificando a pagina atual\n");
