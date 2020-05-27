@@ -11,7 +11,7 @@ typedef struct lista Lista;
 
 typedef struct info Info;
 
-Lista* criar(int v);
+Lista* criar();
 
 Lista* insercao(Lista* l);
 
@@ -35,12 +35,10 @@ Lista* utilizar(Lista* l);
 
 Lista* modificar(Lista* l);
 
-Info* coleta(Lista* l);
+Info* coleta();
 
 void restaurar(FILE arq, Lista* l);
 
 void gravar(FILE arq, Lista* l);
-
-void copiarString(char** s1, char* s2, int qteL);
 
 #endif

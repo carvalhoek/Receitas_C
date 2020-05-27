@@ -21,16 +21,16 @@ struct info{
     int vezes;
 };
 
-Lista* criar(int v){ //FEITO
+Lista* criar(){ //FEITO
     /**
      * alocar memoria
-     * funcao para pegar info*rmacoes
+     * funcao para pegar informacoes
      * ligar ant e prox com ele mesmo
     **/
 
     Lista* novo = (Lista*) malloc(sizeof(Lista));
 
-    novo->teste = v;
+    novo->i = coleta();
 
     novo->proximo = novo;
     novo->anterior = novo;
@@ -45,18 +45,21 @@ Lista* insercao(Lista* l){ //FEITO
      * colocar na posicao correta
      * ordem alfabetica em relacao ao titulo
     **/
-
-    int v;
-    char lixo;
-    printf("digite o valor: ");
-    scanf("%d", &v);
-    scanf("%c", &lixo);
-
-    Lista* novo = criar(v);
+    Lista* novo = criar();
 
     if(l == NULL)
         return novo;
-    else if(l->teste > v){
+    
+    Info* infoNovo = novo->i;
+    Info* infoL = l->i;
+    int menor;
+
+    if(strlen(infoL->titulo) < strlen(infoNovo->titulo))
+        menor = strlen(infoL->titulo);
+    else
+        menor = strlen(infoNovo->titulo);
+    
+    if(strncmp(infoL->titulo, infoNovo->titulo, menor) > 0){
         l->anterior->proximo = novo;
         novo->anterior = l->anterior;
         l->anterior = novo;
@@ -65,9 +68,11 @@ Lista* insercao(Lista* l){ //FEITO
     }
     else{
         Lista* aux = l->proximo;
+        Info* infoAux = aux->i;
         
-        while(v > aux->teste && aux != l){
+        while(strncmp(infoAux->titulo, infoNovo->titulo, menor) < 0 && aux != l){
             aux = aux->proximo;
+            infoAux = aux->i;
         }
 
         aux->anterior->proximo = novo;
@@ -123,12 +128,26 @@ Lista* altera(Lista* l, char modo){ //FEITO
     }
 }
 
-void imprimeAtual(Lista* l){
+void imprimeAtual(Lista* l){ //FEITO
     /**
      * recebe info
      * imprime
+    char titulo[TITULO];
+    char tempo[TEMPO];
+    char ingredientes[INGREDIENTES];
+    char modo[MODO];
+    char criador[CRIADOR];
+    float nota;
+    int vezes;
     **/
-    printf("teste = %d\n\n", l->teste);
+    Info* aux = l->i;
+    printf("Receita: %s\n", aux->titulo);
+    printf("Tempo de preparo: %s\n", aux->tempo);
+    printf("Ingredientes: %s\n", aux->ingredientes);
+    printf("Modo de preparo: %s\n", aux->modo);
+    printf("Criador: %s\n", aux->criador);
+    printf("Nota: %.2f\n", aux->nota);
+    printf("Vezes utilizada: %d\n", aux->vezes);
 }
 
 int tamLista(Lista* l){
@@ -177,15 +196,36 @@ Lista* modificar(Lista* l){
     **/
 }
 
-Info* coleta(Lista* l){
+Info* coleta(){
     /**
-     * criar uma variavael (Info*) auxiliar que pegara as info*rmacoes
-     * pegar todas as info*rmacoes necessarias do usuario
+     * criar uma variavael (Info*) auxiliar que pegara as informacoes
+     * pegar todas as informacoes necessarias do usuario
      * utilizar variaveis auxiliares de string para otimizar espaco
-     * utilizar funcao de colocar string em outra (vou criar)
      * igualar nota e vezes a 0, se necessario
      * retornar a variavel auxiliar
     **/
+
+    Info* aux = (Info*) malloc(sizeof(Info));
+
+    printf("Digite o nome da Receita\n");
+    gets(aux->titulo);
+
+    printf("Digite o tempo de preparo da receita\n");
+    gets(aux->tempo);
+
+    printf("Digite os ingredientes utilizados na receita\n");
+    gets(aux->ingredientes);
+
+    printf("Digite o modo de preparo da receita\n");
+    gets(aux->modo);
+
+    printf("Digite o criador da receita\n");
+    gets(aux->criador);
+
+    aux->vezes = 0;
+    aux->nota = 0.00;
+
+    return aux;
 }
 
 void restaurar(FILE arq, Lista* l){

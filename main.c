@@ -19,7 +19,7 @@ int main(){
         switch(escolha){
             case 'a':
             case 'p':
-                //funcao para ir pro elemento posterior da lista da lista (listaEnc)
+                //funcao para ir pro elemento posterior da lista da lista
                 receitaAtual = altera(receitaAtual, escolha);
                 break;
             case 'u':
@@ -32,17 +32,14 @@ int main(){
                 break;
             case 'r':
                 printf("removendo a pagina atual\n");
-                //funcao de remocao de elemento da lista (listaEnc)
+                //funcao de remocao de elemento da lista
                 break;
             case 'i':
                 printf("inserindo uma nova pagina\n");
-                //funcao de insercao de elemento da lista (listaEnc)
-                if(receitaPrimeira == NULL){
-                    receitaPrimeira = insercao(receitaPrimeira);
+                //funcao de insercao de elemento da lista
+                receitaPrimeira = insercao(receitaPrimeira);
+                if(receitaAtual == NULL)
                     receitaAtual = receitaPrimeira;
-                }
-                else
-                    receitaPrimeira = insercao(receitaPrimeira);
                 break;
             case 's':
                 printf("Saindo do livro\n");
