@@ -17,26 +17,24 @@ int main(){
     do{
         menu(&escolha, receitaAtual);
         switch(escolha){
-            case 'a':
-            case 'p':
+            case '>':
+            case '<':
                 //funcao para ir pro elemento posterior da lista da lista
                 receitaAtual = altera(receitaAtual, escolha);
                 break;
             case 'u':
-                printf("Utilizando pra pagina atual\n");
                 //funcao de utilizacao de receita
                 utilizar(receitaAtual);
                 break;
             case 'm':
                 printf("Modificando a pagina atual\n");
-                //funcao de modificacao de info (funcao)
+                //funcao de modificacao de info
                 break;
             case 'r':
-                printf("removendo a pagina atual\n");
                 //funcao de remocao de elemento da lista
+                receitaAtual = retira(receitaAtual);
                 break;
             case 'i':
-                printf("inserindo uma nova pagina\n");
                 //funcao de insercao de elemento da lista
                 receitaPrimeira = insercao(receitaPrimeira);
                 if(receitaAtual == NULL)

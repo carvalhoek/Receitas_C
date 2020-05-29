@@ -7,8 +7,6 @@ struct lista{
     Info* i;
     Lista* anterior;
     Lista* proximo;
-    int teste;
-    //LEMBRETE: REMOVER TESTE NA FINALIZACAO
 };
 
 struct info{
@@ -90,6 +88,31 @@ Lista* retira(Lista* l){
      * cria auxiliar com o endereco de l->prox
      * retorna auxiliar
     **/
+    if(l != NULL){
+        char esc;
+        printf("\nQuer remover a pagina atual? (S: caso sim): ");
+        scanf("%c", &esc);
+        fflush(stdin);
+
+        if(esc == 's' || esc == 'S'){
+
+            if(l->proximo == l){
+                free(l);
+                return NULL;
+            }
+
+            Lista* aux = l->proximo;
+            Lista* temp = l;
+
+            aux->anterior = temp->anterior;
+            temp->anterior->proximo = aux;
+
+            free(temp);
+
+            return aux;
+        }
+    }
+    return l;
 }
 
 void atualizaInfo(Lista* l, Info* id){
@@ -110,17 +133,20 @@ void libera(Lista* l){ //FEITO
      * loop para liberar toda a memoria
      * condicao de parada
     **/
-   Lista* aux = l;
-   do{
-       aux = aux->proximo;
-       free(aux->anterior);
-   }while(aux != l);
+    if(l == NULL)
+        return;
+
+    Lista* aux = l;
+    do{
+        aux = aux->proximo;
+        free(aux->anterior);
+    }while(aux != l);
 }
 
 Lista* altera(Lista* l, char modo){ //FEITO
-    if(modo == 'a')
+    if(modo == '<')
         return l->anterior;
-    else if(modo == 'p')
+    else if(modo == '>')
         return l->proximo;
     else{ 
         printf("Modo invalido!\n");
@@ -132,13 +158,6 @@ void imprimeAtual(Lista* l){ //FEITO
     /**
      * recebe info
      * imprime
-    char titulo[TITULO];
-    char tempo[TEMPO];
-    char ingredientes[INGREDIENTES];
-    char modo[MODO];
-    char criador[CRIADOR];
-    float nota;
-    int vezes;
     **/
     Info* aux = l->i;
     printf("Receita: %s\n", aux->titulo);
@@ -159,16 +178,28 @@ int tamLista(Lista* l){
 }
 
 void menu(char* e, Lista* l){
-    printf("\nLivro de Receitas\n\n");
-    printf("<-a ou p->: Navegar\n");
-    printf("u: Utilizada\n");
-    printf("m: Modificar\n");
-    printf("r: Remover\n");
-    printf("i: Inserir nova\n");
-    printf("s: Sair do livro\n\n");
+    printf("\n=====================================\n");
+    printf("#                                   #\n");
+    printf("#         Livro de Receitas         #\n");
+    printf("#                                   #\n");
+    printf("=====================================\n");
+    printf("#                                   #\n");
+    printf("#    <->: Navegar                   #\n");
+    printf("#     u : Utilizada                 #\n");
+    printf("#     m : Modificar                 #\n");
+    printf("#     r : Remover                   #\n");
+    printf("#     i : Inserir nova              #\n");
+    printf("#                                   #\n");
+    printf("#     s : Sair do livro             #\n");
+    printf("#                                   #\n");
+    printf("=====================================\n\n");
 
     if(l != NULL)
         imprimeAtual(l);
+    else
+        printf("Nenhuma Receita inserida (i: para uma nova)\n");
+    
+    printf("\nOpcao: ");
 
     scanf("%c", e);
     fflush(stdin);
@@ -192,7 +223,7 @@ void utilizar(Lista* l){
     aux->vezes++;
 
     float notaMais;
-    printf("Digite a nota que da para a receita utilizada (0-5): ");
+    printf("\nDigite a nota que da para a receita utilizada (0-5): ");
     scanf("%f", &notaMais);
     scanf("%c", &lixo);
 
@@ -220,19 +251,19 @@ Info* coleta(){
 
     Info* aux = (Info*) malloc(sizeof(Info));
 
-    printf("Digite o nome da Receita\n");
+    printf("\nDigite o nome da Receita\n");
     gets(aux->titulo);
 
-    printf("Digite o tempo de preparo da receita\n");
+    printf("\nDigite o tempo de preparo da receita\n");
     gets(aux->tempo);
 
-    printf("Digite os ingredientes utilizados na receita\n");
+    printf("\nDigite os ingredientes utilizados na receita\n");
     gets(aux->ingredientes);
 
-    printf("Digite o modo de preparo da receita\n");
+    printf("\nDigite o modo de preparo da receita\n");
     gets(aux->modo);
 
-    printf("Digite o criador da receita\n");
+    printf("\nDigite o criador da receita\n");
     gets(aux->criador);
 
     aux->vezes = 0;
