@@ -6,8 +6,6 @@
 int main(){
     Lista* receitaPrimeira = NULL;
     Lista* receitaAtual = NULL;
-    char* nome = "datei";
-    FILE* arq = neueDatenbank(nome);
     char escolha;
 
     /**
@@ -16,6 +14,14 @@ int main(){
      * funcao para pegar informacoes do arquivo (funcao)
      * fechar arquivo, talvez apagar
     **/
+
+    FILE* arq = fopen("datei.kr", "r");
+    if(arq != NULL){
+        receitaPrimeira = restaurar(arq);
+        fclose(arq);
+        remove("datei.kr");
+        receitaAtual = receitaPrimeira;
+    }
 
     do{
         menu(&escolha, receitaAtual);
@@ -60,7 +66,11 @@ int main(){
      * liberacao de de variaveis
      * funcao de liberacao de lista (listaEnc)
     **/
+
+    char* nome = "datei";
+    arq = neueDatenbank(nome);
     gravar(arq,receitaPrimeira);
     libera(receitaAtual);
+    
     return 0;
 }

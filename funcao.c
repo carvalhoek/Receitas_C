@@ -20,7 +20,7 @@ struct info{
     int vezes;
 };
 
-Lista* criar(){ //FEITO
+Lista* criar(char modo){ //FEITO
     /**
      * alocar memoria
      * funcao para pegar informacoes
@@ -29,8 +29,11 @@ Lista* criar(){ //FEITO
 
     Lista* novo = (Lista*) malloc(sizeof(Lista));
 
-    novo->i = coleta();
-
+    if(modo == 'i')
+        novo->i = coleta();
+    else
+        novo->i = malloc(sizeof(Info));
+    
     novo->proximo = novo;
     novo->anterior = novo;
 
@@ -44,7 +47,7 @@ Lista* insercao(Lista* l){ //FEITO
      * colocar na posicao correta
      * ordem alfabetica em relacao ao titulo
     **/
-    Lista* novo = criar();
+    Lista* novo = criar('i');
 
     if(l == NULL)
         return novo;
@@ -313,7 +316,7 @@ Info* coleta(){
     return aux;
 }
 
-void restaurar(FILE* arq, Lista* l){
+Lista* restaurar(FILE* arq){
     /**
      * arquivo vai ser lida
      * pegar quantidade de elementos na Lista*
@@ -327,13 +330,47 @@ void restaurar(FILE* arq, Lista* l){
      *          float nota
      *          int vezes
     **/
-    Lista* primeiro = criar();
+    Lista* primeiro = criar('r');
     Lista* ultimo = primeiro;
+
     Info* auxI = primeiro->i;
-    auxI->titulo = (char*)datebankLesen(arq);
+
+    *auxI->titulo = (char*)datebankLesen(arq);
+    *auxI->tempo = (char*)datebankLesen(arq);
+    *auxI->ingredientes = (char*)datebankLesen(arq);
+    *auxI->modo = (char*)datebankLesen(arq);
+    *auxI->criador = (char*)datebankLesen(arq);
+
+    float* auxF;
+    int* auxInt;
+    auxF = (float*)datebankLesen(arq);
+    auxInt = (int*)datebankLesen(arq);
+    auxI->nota = *auxF;
+    auxI->vezes = *auxInt;
+
     do{
-		datebankLesen(arq);
+        Lista* auxiliar = criar('r');
+
+        auxI = auxiliar->i;
+
+        *auxI->titulo = (char*)datebankLesen(arq);
+        *auxI->tempo = (char*)datebankLesen(arq);
+        *auxI->ingredientes = (char*)datebankLesen(arq);
+        *auxI->modo = (char*)datebankLesen(arq);
+        *auxI->criador = (char*)datebankLesen(arq);
+
+        auxF = (float*)datebankLesen(arq);
+        auxInt = (int*)datebankLesen(arq);
+        auxI->nota = *auxF;
+        auxI->vezes = *auxInt;
+
+        ultimo->proximo = auxiliar;
+        primeiro->anterior = auxiliar;
+        auxiliar->anterior = ultimo;
+        auxiliar->proximo = primeiro;
 	}while(!feof(arq));
+
+    return primeiro;
 }
 
 void gravar(FILE* arq, Lista* l){
