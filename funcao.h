@@ -33,7 +33,7 @@ void menu(char* e, Lista* l);
 
 void utilizar(Lista* l);
 
-Lista* modificar(Lista* l);
+void modificar(Lista* l);
 
 Info* coleta();
 
