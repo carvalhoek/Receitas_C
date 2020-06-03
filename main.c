@@ -27,8 +27,8 @@ int main(){
                 utilizar(receitaAtual);
                 break;
             case 'm':
-                printf("Modificando a pagina atual\n");
                 //funcao de modificacao de info
+                modificar(receitaAtual);
                 break;
             case 'r':
                 //funcao de remocao de elemento da lista

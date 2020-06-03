@@ -179,19 +179,19 @@ int tamLista(Lista* l){
 
 void menu(char* e, Lista* l){
     printf("\n=====================================\n");
-    printf("#                                   #\n");
-    printf("#         Livro de Receitas         #\n");
-    printf("#                                   #\n");
+    printf("||                                 ||\n");
+    printf("||        Livro de Receitas        ||\n");
+    printf("||                                 ||\n");
     printf("=====================================\n");
-    printf("#                                   #\n");
-    printf("#    <->: Navegar                   #\n");
-    printf("#     u : Utilizada                 #\n");
-    printf("#     m : Modificar                 #\n");
-    printf("#     r : Remover                   #\n");
-    printf("#     i : Inserir nova              #\n");
-    printf("#                                   #\n");
-    printf("#     s : Sair do livro             #\n");
-    printf("#                                   #\n");
+    printf("||                                 ||\n");
+    printf("||    <->: Navegar                 ||\n");
+    printf("||     u : Utilizada               ||\n");
+    printf("||     m : Modificar               ||\n");
+    printf("||     r : Remover                 ||\n");
+    printf("||     i : Inserir nova            ||\n");
+    printf("||                                 ||\n");
+    printf("||     s : Sair do livro           ||\n");
+    printf("||                                 ||\n");
     printf("=====================================\n\n");
 
     if(l != NULL)
@@ -230,14 +230,53 @@ void utilizar(Lista* l){
     aux->nota = (aux->nota+notaMais)/aux->vezes;
 }
 
-Lista* modificar(Lista* l){
+void modificar(Lista* l){
     /**
      * criar uma variavel para pegar info*rmacoes do elemento da lisra
-     * funcao para pegar info*rmacoes existentes do elemento
+     * funcao para pegar informacoes existentes do elemento
      * podiamos fazer um loop infinito para saber o que quer ser alterado
-     * colocar a nova info* no elemento da lista*
+     * colocar a nova info no elemento da lista*
      * retornar o elemento modificado da lista* (ou nao, nao sei se precisa)
     **/
+
+    Info* aux = l->i;
+
+    printf("1 - Nome da receita: %s\n", aux->titulo);
+    printf("2 - Tempo de preparo: %s\n", aux->tempo);
+    printf("3 - Ingredientes: %s\n", aux->ingredientes);
+    printf("4 - Modo de preparo: %s\n", aux->modo);
+    printf("5 - Nome do criador: %s\n", aux->criador);
+
+    char esc;
+    printf("\nDigite a opcao da informacao sera modificada: ");
+    scanf("%c", &esc);
+    fflush(stdin);
+
+    switch(esc){
+        case '1':
+            printf("\nNovo titulo: ");
+            gets(aux->titulo);
+            break;
+        case '2':
+            printf("\nNovo tempo de preparo: ");
+            gets(aux->tempo);
+            break;
+        case '3':
+            printf("\nNovos ingredientes: ");
+            gets(aux->ingredientes);
+            break;
+        case '4':
+            printf("\nNovo modo de preparo: ");
+            gets(aux->modo);
+            break;
+        case '5':
+            printf("\nNovo nome do criador: ");
+            gets(aux->criador);
+            break;
+        default:
+            printf("\nOperacao invalida!\n");
+            break;
+    }
 }
 
 Info* coleta(){
