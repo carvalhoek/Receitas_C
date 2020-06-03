@@ -37,8 +37,8 @@ void modificar(Lista* l);
 
 Info* coleta();
 
-void restaurar(FILE arq, Lista* l);
+void restaurar(FILE* arq, Lista* l);
 
-void gravar(FILE arq, Lista* l);
+void gravar(FILE* arq, Lista* l);
 
 #endif
