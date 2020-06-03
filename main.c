@@ -3,7 +3,8 @@
 
 
 int main(){
-    Lista receitaAtual = NULL;
+    Lista* receitaPrimeira = NULL;
+    Lista* receitaAtual = NULL;
     char escolha;
 
     /**
@@ -16,31 +17,28 @@ int main(){
     do{
         menu(&escolha, receitaAtual);
         switch(escolha){
-            case 'a':
-                printf("Indo pra pagina anterior\n");
-                //funcao para ir pro elemento anterior da lista (listaEnc)
-                break;
-            case 'p':
-                printf("Indo pra pagina posterior\n");
-                //funcao para ir pro elemento posterior da lista da lista (listaEnc)
+            case '>':
+            case '<':
+                //funcao para ir pro elemento posterior da lista da lista
+                receitaAtual = altera(receitaAtual, escolha);
                 break;
             case 'u':
-                printf("Utilizando pra pagina atual\n");
-                //funcao de utilizacao de receita (funcao)
+                //funcao de utilizacao de receita
+                utilizar(receitaAtual);
                 break;
             case 'm':
                 printf("Modificando a pagina atual\n");
-                //funcao de modificacao de info (funcao)
+                //funcao de modificacao de info
                 break;
             case 'r':
-                printf("removendo a pagina atual\n");
-                //funcao de remocao de elemento da lista (listaEnc)
+                //funcao de remocao de elemento da lista
+                receitaAtual = retira(receitaAtual);
                 break;
             case 'i':
-                printf("inserindo uma nova pagina\n");
-                //funcao de insercao de elemento da lista (listaEnc)
-                receitaAtual = insercao(receitaAtual);
-                imprimeAtual(receitaAtual);
+                //funcao de insercao de elemento da lista
+                receitaPrimeira = insercao(receitaPrimeira);
+                if(receitaAtual == NULL)
+                    receitaAtual = receitaPrimeira;
                 break;
             case 's':
                 printf("Saindo do livro\n");
@@ -59,6 +57,8 @@ int main(){
      * liberacao de de variaveis
      * funcao de liberacao de lista (listaEnc)
     **/
+
+    libera(receitaAtual);
 
     return 0;
 }

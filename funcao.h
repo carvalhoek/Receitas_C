@@ -1,38 +1,44 @@
 #ifndef FUNCAO_H_INCLUDE
 #define FUNCAO_H_INCLUDE
 
-typedef struct lista* Lista;
+#define TITULO 50
+#define TEMPO 25
+#define INGREDIENTES 2000
+#define MODO 4000
+#define CRIADOR 50
 
-typedef struct info* Info;
+typedef struct lista Lista;
 
-Lista criar(int v);
+typedef struct info Info;
 
-Lista insercao(Lista l);
+Lista* criar();
 
-Lista retira(Lista l);
+Lista* insercao(Lista* l);
 
-void atualizaInfo(Lista l, Info id);
+Lista* retira(Lista* l);
 
-Info informacoes(Lista l);
+void atualizaInfo(Lista* l, Info* id);
 
-void libera(Lista l);
+Info* informacoes(Lista* l);
 
-void imprimeAtual(Lista l);
+void libera(Lista* l);  //FEITO
 
-int tamLista(Lista l);
+Lista* altera(Lista* l, char modo); //FEITO
 
-void menu(char* e, Lista l);
+void imprimeAtual(Lista* l);
 
-Lista utilizar(Lista l);
+int tamLista(Lista* l);
 
-Lista modificar(Lista l);
+void menu(char* e, Lista* l);
 
-Info coleta(Lista l);
+void utilizar(Lista* l);
 
-void restaurar(FILE arq, Lista l);
+Lista* modificar(Lista* l);
 
-void gravar(FILE arq, Lista l);
+Info* coleta();
 
-void copiarString(char** s1, char* s2, int qteL);
+void restaurar(FILE arq, Lista* l);
+
+void gravar(FILE arq, Lista* l);
 
 #endif
