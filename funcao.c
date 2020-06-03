@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funcao.h"
+#include "daskreutzbank.h"
 
 struct lista{
     Info* i;
@@ -200,8 +201,9 @@ void menu(char* e, Lista* l){
         printf("Nenhuma Receita inserida (i: para uma nova)\n");
     
     printf("\nOpcao: ");
-
+    char lixo;
     scanf("%c", e);
+    scanf("%c", &lixo);
     fflush(stdin);
 }
 
@@ -311,7 +313,7 @@ Info* coleta(){
     return aux;
 }
 
-void restaurar(FILE arq, Lista* l){
+void restaurar(FILE* arq, Lista* l){
     /**
      * arquivo vai ser lida
      * pegar quantidade de elementos na Lista*
@@ -325,9 +327,16 @@ void restaurar(FILE arq, Lista* l){
      *          float nota
      *          int vezes
     **/
+    Lista* primeiro = criar();
+    Lista* ultimo = primeiro;
+    Info* auxI = primeiro->i;
+    auxI->titulo = (char*)datebankLesen(arq);
+    do{
+		datebankLesen(arq);
+	}while(!feof(arq));
 }
 
-void gravar(FILE arq, Lista* l){
+void gravar(FILE* arq, Lista* l){
     /**
      * arquivo vai ser escrito
      * funcao que le quantidade de elementos
@@ -343,4 +352,18 @@ void gravar(FILE arq, Lista* l){
      *          int vezes
      *      funcao de insercao
     **/
+    Lista* auxiliar = l;
+    do{
+        Info* auxI =  auxiliar->i;
+        datenbankSchreiben(arq,typename(auxI->titulo),auxI->titulo);
+        datenbankSchreiben(arq,typename(auxI->tempo),auxI->tempo);
+        datenbankSchreiben(arq,typename(auxI->ingredientes),auxI->ingredientes);
+        datenbankSchreiben(arq,typename(auxI->modo),auxI->modo);
+        datenbankSchreiben(arq,typename(auxI->criador),auxI->criador);
+        datenbankSchreiben(arq,typename(auxI->nota),&auxI->nota);
+        datenbankSchreiben(arq,typename(auxI->vezes),&auxI->vezes);
+        auxiliar = auxiliar->proximo;
+    } while (auxiliar != l);
+    
+
 }

@@ -19,6 +19,6 @@ FILE* datebankOffnen(char*name);
 
 void datenbankSchreiben(FILE*arq,int type, void*data);
 
-void datebankLesen(FILE *arq);
+void* datebankLesen(FILE *arq);
 
 #endif

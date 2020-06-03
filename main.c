@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include "funcao.h"
+#include "daskreutzbank.h"
 
 
 int main(){
     Lista* receitaPrimeira = NULL;
     Lista* receitaAtual = NULL;
+    char* nome = "datei";
+    FILE* arq = neueDatenbank(nome);
     char escolha;
 
     /**
@@ -57,8 +60,7 @@ int main(){
      * liberacao de de variaveis
      * funcao de liberacao de lista (listaEnc)
     **/
-
+    gravar(arq,receitaPrimeira);
     libera(receitaAtual);
-
     return 0;
 }

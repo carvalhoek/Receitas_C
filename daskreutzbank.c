@@ -56,7 +56,7 @@ void datenbankSchreiben(FILE*arq,int type, void*data){
 		return;
 	}
 }
-void datebankLesen(FILE *arq){
+void* datebankLesen(FILE *arq){
 	int a;
 	//rewind(arq);
 	int id;
@@ -69,22 +69,18 @@ void datebankLesen(FILE *arq){
 	switch (id){
 	case 7:
 		fread(&dataI,sizeof(int),1,arq);
-		printf("%d\n",dataI);
-		break;
+		return &dataI;
 	case 13:
 		fread(&dataF,sizeof(float),1,arq);
-		printf("%f\n",dataF);
-		break;
+		return &dataF;
 	case 3:
 		fread(&dataC,sizeof(char),1,arq);
-		printf("%c\n",dataC);
-		break;
+		return &dataC;
 	case 16:
 		fread(&len,sizeof(int),1,arq);
 		dataS = stringZuweisung(len);
 		fread(dataS,sizeof(char),len,arq);
-		printf("%s\n",dataS);
-		break;	
+		return dataS;
 	default:
 		printf("erro na leitura, codigo de tipo errado");
 		return;
