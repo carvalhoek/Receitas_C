@@ -165,6 +165,7 @@ void imprimeAtual(Lista* l){ //FEITO
     **/
     Info* aux = l->i;
     printf("Receita: %s\n", aux->titulo);
+    puts(aux->titulo);
     printf("Tempo de preparo: %s\n", aux->tempo);
     printf("Ingredientes: %s\n", aux->ingredientes);
     printf("Modo de preparo: %s\n", aux->modo);
@@ -316,7 +317,7 @@ Info* coleta(){
     return aux;
 }
 
-Lista* restaurar(FILE* arq){
+void restaurar(FILE* arq, Lista** obj){
     /**
      * arquivo vai ser lida
      * pegar quantidade de elementos na Lista*
@@ -339,52 +340,100 @@ Lista* restaurar(FILE* arq){
     Info* auxI = primeiro->i;
 
 
-    *auxI->titulo = (char*)datebankLesen(arq);
+    strcpy(auxI->titulo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//1
     printf("%s", auxI->titulo);
-    *auxI->tempo = (char*)datebankLesen(arq);
+    strcpy(auxI->tempo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//2
-    *auxI->ingredientes = (char*)datebankLesen(arq);
+    printf("%s", auxI->tempo);
+    strcpy(auxI->ingredientes,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//3
-    *auxI->modo = (char*)datebankLesen(arq);
+    printf("%s", auxI->ingredientes);
+    strcpy(auxI->modo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//4
-    *auxI->criador = (char*)datebankLesen(arq);
+    printf("%s", auxI->modo);
+    strcpy(auxI->criador,(char*)datebankLesen(arq));
+    printf("%s\n", auxI->criador);
     scanf("%c", &fodac);//5
+    
 
     float* auxF;
     int* auxInt;
     auxF = (float*)datebankLesen(arq);
+    printf("aux float\n");
     scanf("%c", &fodac);//6
     auxInt = (int*)datebankLesen(arq);
+    printf("aux int\n");
     scanf("%c", &fodac);//7
     auxI->nota = *auxF;
+    printf("nota deu boa\n");
     scanf("%c", &fodac);//8
     auxI->vezes = *auxInt;
+    printf("vezes deu boa\n");
     scanf("%c", &fodac);//9
 
-    do{
+    while(!feof(arq)){
         Lista* auxiliar = criar('r');
 
         auxI = auxiliar->i;
 
-        *auxI->titulo = *(char*)datebankLesen(arq);
-        *auxI->tempo = *(char*)datebankLesen(arq);
-        *auxI->ingredientes = *(char*)datebankLesen(arq);
-        *auxI->modo = *(char*)datebankLesen(arq);
-        *auxI->criador = *(char*)datebankLesen(arq);
-
+        strcpy(auxI->titulo,(char*)datebankLesen(arq));
+        scanf("%c", &fodac);//1
+        printf("%s", auxI->titulo);
+        strcpy(auxI->tempo,(char*)datebankLesen(arq));
+        scanf("%c", &fodac);//2
+        printf("%s", auxI->tempo);
+        strcpy(auxI->ingredientes,(char*)datebankLesen(arq));
+        scanf("%c", &fodac);//3
+        printf("%s", auxI->ingredientes);
+        strcpy(auxI->modo,(char*)datebankLesen(arq));
+        scanf("%c", &fodac);//4
+        printf("%s\n", auxI->modo);
+        strcpy(auxI->criador,(char*)datebankLesen(arq));
+        printf("%s", auxI->criador);
+        scanf("%c", &fodac);//5
+        
         auxF = (float*)datebankLesen(arq);
+        printf("aux float\n");
+        scanf("%c", &fodac);//6
         auxInt = (int*)datebankLesen(arq);
+        printf("aux int\n");
+        scanf("%c", &fodac);//7
         auxI->nota = *auxF;
+        printf("nota deu boa\n");
+        scanf("%c", &fodac);//8
         auxI->vezes = *auxInt;
+        printf("vezes deu boa\n");
+        scanf("%c", &fodac);//9
 
         ultimo->proximo = auxiliar;
         primeiro->anterior = auxiliar;
         auxiliar->anterior = ultimo;
         auxiliar->proximo = primeiro;
-	}while(!feof(arq));
-
-    return primeiro;
+        ultimo = auxiliar;
+        if(!feof(arq)){
+            printf("merere funciona\n");
+            break;
+        }
+	}
+    printf("sai porra\n");
+    scanf("%c", &fodac);//9
+    *obj = primeiro;
+    printf("igualei\n");
+    scanf("%c", &fodac);//9
+        printf("igualei\n");
+    scanf("%c", &fodac);//9
+        printf("igualei\n");
+    scanf("%c", &fodac);//9
+        printf("igualei\n");
+    scanf("%c", &fodac);//9
+        printf("igualei\n");
+    scanf("%c", &fodac);//9
+        printf("igualei\n");
+    scanf("%c", &fodac);//9
+    imprimeAtual(primeiro);
+    imprimeAtual(ultimo);
+    imprimeAtual(*obj);
 }
 
 void gravar(FILE* arq, Lista* l){
@@ -414,7 +463,9 @@ void gravar(FILE* arq, Lista* l){
         datenbankSchreiben(arq,typename(auxI->nota),&auxI->nota);
         datenbankSchreiben(arq,typename(auxI->vezes),&auxI->vezes);
         auxiliar = auxiliar->proximo;
-    } while (auxiliar != l);
-    
-
+    } while (auxiliar != l); 
+}
+void alocar(Lista** obj){
+    *obj = malloc(sizeof(Lista));
+    (*obj)->i = malloc(sizeof(Info));
 }

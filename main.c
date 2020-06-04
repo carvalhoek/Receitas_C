@@ -1,13 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "funcao.h"
 #include "daskreutzbank.h"
 
 
 int main(){
-    Lista* receitaPrimeira = NULL;
-    Lista* receitaAtual = NULL;
+    Lista* receitaPrimeira=NULL;
+    Lista* receitaAtual=NULL;
     char* nome = "datei";
     char escolha;
+    char a;
 
     /**
      * verificacao da existencia de um arquivo
@@ -15,15 +17,28 @@ int main(){
      * funcao para pegar informacoes do arquivo (funcao)
      * fechar arquivo, talvez apagar
     **/
-
     FILE* arq = datebankOffnen(nome);
     if(arq != NULL){
-        receitaPrimeira = restaurar(arq);
+        printf("to no if");
+        scanf("%c",&a);
+        alocar(&receitaPrimeira);
+        alocar(&receitaAtual);
+        restaurar(arq,&receitaPrimeira);
+        imprimeAtual(receitaPrimeira);
+        printf("restaurei");
+        scanf("%c",&a);
+        printf("huuuuuum");
+        scanf("%c",&a);
         fclose(arq);
+        printf("fechei");
+        scanf("%c",&a);
         remove("datei.kr");
+        printf("removi");
+        scanf("%c",&a);
         receitaAtual = receitaPrimeira;
+        printf("igualei 2.0");
+        scanf("%c",&a);
     }
-
     do{
         menu(&escolha, receitaAtual);
         switch(escolha){

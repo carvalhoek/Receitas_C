@@ -22,7 +22,9 @@ FILE* datebankOffnen(char*name){
 	strcpy(nam,name);
 	strcat(nam,ext);
 	arq = fopen(nam,"rb+");
-	rewind(arq);
+	if(arq != NULL){
+		rewind(arq);
+	}
 	return arq;
 }
 void datenbankSchreiben(FILE*arq,int type, void*data){
@@ -65,17 +67,18 @@ void* datebankLesen(FILE *arq){
 	int dataI;
 	float dataF;
 	char dataC;
+	void* point;
 	fread(&id,sizeof(int),1,arq);
 	switch (id){
 	case 7:
-		fread(&dataI,sizeof(int),1,arq);
-		return &dataI;
+		fread(point,sizeof(int),1,arq);
+		return point;
 	case 13:
-		fread(&dataF,sizeof(float),1,arq);
-		return &dataF;
+		fread(point,sizeof(float),1,arq);
+		return point;
 	case 3:
-		fread(&dataC,sizeof(char),1,arq);
-		return &dataC;
+		fread(point,sizeof(char),1,arq);
+		return point;
 	case 16:
 		fread(&len,sizeof(int),1,arq);
 		dataS = stringZuweisung(len);
