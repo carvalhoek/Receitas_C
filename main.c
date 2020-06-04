@@ -6,6 +6,7 @@
 int main(){
     Lista* receitaPrimeira = NULL;
     Lista* receitaAtual = NULL;
+    char* nome = "datei";
     char escolha;
 
     /**
@@ -15,7 +16,7 @@ int main(){
      * fechar arquivo, talvez apagar
     **/
 
-    FILE* arq = fopen("datei.kr", "r");
+    FILE* arq = datebankOffnen(nome);
     if(arq != NULL){
         receitaPrimeira = restaurar(arq);
         fclose(arq);
@@ -67,7 +68,6 @@ int main(){
      * funcao de liberacao de lista (listaEnc)
     **/
 
-    char* nome = "datei";
     arq = neueDatenbank(nome);
     gravar(arq,receitaPrimeira);
     libera(receitaAtual);

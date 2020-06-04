@@ -330,34 +330,48 @@ Lista* restaurar(FILE* arq){
      *          float nota
      *          int vezes
     **/
+    
+    char fodac;
+
     Lista* primeiro = criar('r');
     Lista* ultimo = primeiro;
 
     Info* auxI = primeiro->i;
 
+
     *auxI->titulo = (char*)datebankLesen(arq);
+    scanf("%c", &fodac);//1
+    printf("%s", auxI->titulo);
     *auxI->tempo = (char*)datebankLesen(arq);
+    scanf("%c", &fodac);//2
     *auxI->ingredientes = (char*)datebankLesen(arq);
+    scanf("%c", &fodac);//3
     *auxI->modo = (char*)datebankLesen(arq);
+    scanf("%c", &fodac);//4
     *auxI->criador = (char*)datebankLesen(arq);
+    scanf("%c", &fodac);//5
 
     float* auxF;
     int* auxInt;
     auxF = (float*)datebankLesen(arq);
+    scanf("%c", &fodac);//6
     auxInt = (int*)datebankLesen(arq);
+    scanf("%c", &fodac);//7
     auxI->nota = *auxF;
+    scanf("%c", &fodac);//8
     auxI->vezes = *auxInt;
+    scanf("%c", &fodac);//9
 
     do{
         Lista* auxiliar = criar('r');
 
         auxI = auxiliar->i;
 
-        *auxI->titulo = (char*)datebankLesen(arq);
-        *auxI->tempo = (char*)datebankLesen(arq);
-        *auxI->ingredientes = (char*)datebankLesen(arq);
-        *auxI->modo = (char*)datebankLesen(arq);
-        *auxI->criador = (char*)datebankLesen(arq);
+        *auxI->titulo = *(char*)datebankLesen(arq);
+        *auxI->tempo = *(char*)datebankLesen(arq);
+        *auxI->ingredientes = *(char*)datebankLesen(arq);
+        *auxI->modo = *(char*)datebankLesen(arq);
+        *auxI->criador = *(char*)datebankLesen(arq);
 
         auxF = (float*)datebankLesen(arq);
         auxInt = (int*)datebankLesen(arq);
