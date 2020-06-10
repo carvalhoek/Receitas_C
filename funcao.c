@@ -333,6 +333,8 @@ Lista* restaurar(FILE* arq){
     
     char fodac;
 
+    
+
     Lista* primeiro = criar('r');
     Lista* ultimo = primeiro;
 
