@@ -1,26 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcao.h"
-#include "daskreutzbank.h"
 
 
 int main(){
-    Lista* receitaPrimeira=NULL;
-    Lista* receitaAtual=NULL;
-    char* nome = "datei";
+    Lista* receitaAtual = NULL;
+    pos* receitas = NULL;
     char escolha;
     char a;
 
     /**
-     * verificacao da existencia de um arquivo
      * abrir arquivo
-     * funcao para pegar informacoes do arquivo (funcao)
-     * fechar arquivo, talvez apagar
+     * verificacao da existencia de um arquivo
+     * funcao para pegar informacoes do arquivo
+     * fechar arquivo
+     * apagar o arquivo
     **/
-    FILE* arq = datebankOffnen(nome);
+    FILE* arq = fopen("datei.kr", "r+b");
     if(arq != NULL){
-        restaurar(arq, &receitaPrimeira);
-        receitaAtual = receitaPrimeira;
+        receitas = restaurar(arq);
+        receitaAtual = acessarP(receitas);
         fclose(arq);
         remove("datei.kr");
     }
@@ -42,13 +41,14 @@ int main(){
                 break;
             case 'r':
                 //funcao de remocao de elemento da lista
-                receitaAtual = retira(receitaAtual);
+                receitaAtual = retira(receitaAtual, receitas);
                 break;
             case 'i':
                 //funcao de insercao de elemento da lista
-                receitaPrimeira = insercao(receitaPrimeira);
+                //verificacao se eh o primeiro elemento a ser inserido
+                receitas = insercao(receitas);
                 if(receitaAtual == NULL)
-                    receitaAtual = receitaPrimeira;
+                    receitaAtual = acessarP(receitas);
                 break;
             case 's':
                 printf("Saindo do livro\n");
@@ -61,17 +61,20 @@ int main(){
     }while(escolha != 's');
 
     /**
+     * verifica se tem algo pra gravar
      * criacao de arquivo de gravacao
      * funcao de gravacao de info no arquivo
      * fechar arquivo
-     * liberacao de de variaveis
-     * funcao de liberacao de lista (listaEnc)
+     * funcao de liberacao de lista
     **/
 
-    arq = neueDatenbank(nome);
-    gravar(arq,receitaPrimeira);
-    fclose(arq);
-    libera(receitaAtual);
-    
+    if(receitaAtual != NULL){
+        arq = fopen("datei.kr", "w+b");
+        gravar(arq, acessarP(receitas));
+        fclose(arq);
+        libera(receitaAtual);
+        free(receitas);
+    }
+
     return 0;
 }

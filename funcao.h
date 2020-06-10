@@ -11,19 +11,21 @@ typedef struct lista Lista;
 
 typedef struct info Info;
 
+typedef struct posicao pos;
+
+Lista* acessarP(pos* listas);
+
+Lista* acessarU(pos* listas);
+
 Lista* criar(char modo);
 
-Lista* insercao(Lista* l);
+pos* insercao(pos* l);
 
-Lista* retira(Lista* l);
+Lista* retira(Lista* l, pos* p);
 
-void atualizaInfo(Lista* l, Info* id);
+void libera(Lista* l);
 
-Info* informacoes(Lista* l);
-
-void libera(Lista* l);  //FEITO
-
-Lista* altera(Lista* l, char modo); //FEITO
+Lista* altera(Lista* l, char modo);
 
 void imprimeAtual(Lista* l);
 
@@ -37,10 +39,8 @@ void modificar(Lista* l);
 
 Info* coleta();
 
-void restaurar(FILE* arq, Lista** obj);
+pos* restaurar(FILE* arq);
 
 void gravar(FILE* arq, Lista* l);
-
-void alocar(Lista** obj);
 
 #endif
