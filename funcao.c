@@ -317,7 +317,7 @@ Info* coleta(){
     return aux;
 }
 
-void restaurar(FILE* arq, Lista** obj){
+void restaurar(FILE* arq, Lista** l){
     /**
      * arquivo vai ser lida
      * pegar quantidade de elementos na Lista*
@@ -341,22 +341,28 @@ void restaurar(FILE* arq, Lista** obj){
 
     Info* auxI = primeiro->i;
 
+    //char* auxS;
 
-    strcpy(auxI->titulo,(char*)datebankLesen(arq));
+
+//    auxS = (char*)datebankLesen(arq);
+//   printf("%s tam: %d\n", auxS, strlen(auxS));
+//    strncpy(auxI->titulo, auxS, strlen(auxS));
+//    auxI->titulo[strlen(auxS)] = '\0';
+    /*strcpy(auxI->titulo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//1
-    printf("%s", auxI->titulo);
+    printf("%s tam: %d", auxI->titulo, strlen(auxI->titulo));
     strcpy(auxI->tempo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//2
-    printf("%s", auxI->tempo);
+    printf("%s tam: %d", auxI->tempo, strlen(auxI->tempo));
     strcpy(auxI->ingredientes,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//3
-    printf("%s", auxI->ingredientes);
+    printf("%s tam: %d", auxI->ingredientes, strlen(auxI->ingredientes));
     strcpy(auxI->modo,(char*)datebankLesen(arq));
     scanf("%c", &fodac);//4
-    printf("%s", auxI->modo);
+    printf("%s tam: %d", auxI->modo, strlen(auxI->modo));
     strcpy(auxI->criador,(char*)datebankLesen(arq));
-    printf("%s\n", auxI->criador);
     scanf("%c", &fodac);//5
+    printf("%s tam: %d", auxI->criador, strlen(auxI->criador));
     
 
     float* auxF;
@@ -372,14 +378,39 @@ void restaurar(FILE* arq, Lista** obj){
     scanf("%c", &fodac);//8
     auxI->vezes = *auxInt;
     printf("vezes deu boa\n");
-    scanf("%c", &fodac);//9
+    scanf("%c", &fodac);//9*/
+
+    int tamS;
+
+    fread(&tamS, sizeof(int), 1, arq);
+    fread(auxI->titulo, sizeof(char), tamS, arq);
+    auxI->titulo[tamS] = '\0';
+    
+    fread(&tamS, sizeof(int), 1, arq);
+    fread(auxI->tempo, sizeof(char), tamS, arq);
+    auxI->tempo[tamS] = '\0';
+    
+    fread(&tamS, sizeof(int), 1, arq);
+    fread(auxI->ingredientes, sizeof(char), tamS, arq);
+    auxI->ingredientes[tamS] = '\0';
+    
+    fread(&tamS, sizeof(int), 1, arq);
+    fread(auxI->modo, sizeof(char), tamS, arq);
+    auxI->modo[tamS] = '\0';
+    
+    fread(&tamS, sizeof(int), 1, arq);
+    fread(auxI->criador, sizeof(char), tamS, arq);
+    auxI->criador[tamS] = '\0';
+
+    fread(&auxI->nota, sizeof(float), 1, arq);
+    fread(&auxI->vezes, sizeof(int), 1, arq);
 
     while(!feof(arq)){
         Lista* auxiliar = criar('r');
 
         auxI = auxiliar->i;
 
-        strcpy(auxI->titulo,(char*)datebankLesen(arq));
+        /*strcpy(auxI->titulo,(char*)datebankLesen(arq));
         scanf("%c", &fodac);//1
         printf("%s", auxI->titulo);
         strcpy(auxI->tempo,(char*)datebankLesen(arq));
@@ -406,36 +437,40 @@ void restaurar(FILE* arq, Lista** obj){
         scanf("%c", &fodac);//8
         auxI->vezes = *auxInt;
         printf("vezes deu boa\n");
-        scanf("%c", &fodac);//9
+        scanf("%c", &fodac);//9*/
+
+        fread(&tamS, sizeof(int), 1, arq);
+        fread(auxI->titulo, sizeof(char), tamS, arq);
+        auxI->titulo[tamS] = '\0';
+        
+        fread(&tamS, sizeof(int), 1, arq);
+        fread(auxI->tempo, sizeof(char), tamS, arq);
+        auxI->tempo[tamS] = '\0';
+        
+        fread(&tamS, sizeof(int), 1, arq);
+        fread(auxI->ingredientes, sizeof(char), tamS, arq);
+        auxI->ingredientes[tamS] = '\0';
+        
+        fread(&tamS, sizeof(int), 1, arq);
+        fread(auxI->modo, sizeof(char), tamS, arq);
+        auxI->modo[tamS] = '\0';
+        
+        fread(&tamS, sizeof(int), 1, arq);
+        fread(auxI->criador, sizeof(char), tamS, arq);
+        auxI->criador[tamS] = '\0';
+
+        fread(&auxI->nota, sizeof(float), 1, arq);
+        fread(&auxI->vezes, sizeof(int), 1, arq);
 
         ultimo->proximo = auxiliar;
         primeiro->anterior = auxiliar;
         auxiliar->anterior = ultimo;
         auxiliar->proximo = primeiro;
         ultimo = auxiliar;
-        if(!feof(arq)){
-            printf("merere funciona\n");
+        if(!feof(arq))
             break;
-        }
 	}
-    printf("sai porra\n");
-    scanf("%c", &fodac);//9
-    *obj = primeiro;
-    printf("igualei\n");
-    scanf("%c", &fodac);//9
-        printf("igualei\n");
-    scanf("%c", &fodac);//9
-        printf("igualei\n");
-    scanf("%c", &fodac);//9
-        printf("igualei\n");
-    scanf("%c", &fodac);//9
-        printf("igualei\n");
-    scanf("%c", &fodac);//9
-        printf("igualei\n");
-    scanf("%c", &fodac);//9
-    imprimeAtual(primeiro);
-    imprimeAtual(ultimo);
-    imprimeAtual(*obj);
+    *l = primeiro;
 }
 
 void gravar(FILE* arq, Lista* l){
@@ -457,16 +492,51 @@ void gravar(FILE* arq, Lista* l){
     Lista* auxiliar = l;
     do{
         Info* auxI =  auxiliar->i;
+
+        /*printf("titulo: %s tam: %d\n", auxI->titulo, strlen(auxI->titulo));
         datenbankSchreiben(arq,typename(auxI->titulo),auxI->titulo);
+        printf("tempo: %s tam: %d\n", auxI->tempo, strlen(auxI->tempo));
         datenbankSchreiben(arq,typename(auxI->tempo),auxI->tempo);
+        printf("ingredientes: %s tam: %d\n", auxI->ingredientes, strlen(auxI->ingredientes));
         datenbankSchreiben(arq,typename(auxI->ingredientes),auxI->ingredientes);
+        printf("modo: %s tam: %d\n", auxI->modo, strlen(auxI->modo));
         datenbankSchreiben(arq,typename(auxI->modo),auxI->modo);
+        printf("criador: %s tam: %d\n", auxI->criador, strlen(auxI->criador));
         datenbankSchreiben(arq,typename(auxI->criador),auxI->criador);
+        printf("\n");
         datenbankSchreiben(arq,typename(auxI->nota),&auxI->nota);
-        datenbankSchreiben(arq,typename(auxI->vezes),&auxI->vezes);
+        datenbankSchreiben(arq,typename(auxI->vezes),&auxI->vezes);*/
+
+        int tam;
+
+        tam = strlen(auxI->titulo);
+        fwrite(&tam, sizeof(int), 1, arq);
+        fwrite(auxI->titulo, sizeof(char), strlen(auxI->titulo), arq);
+
+        tam = strlen(auxI->tempo);
+        fwrite(&tam, sizeof(int), 1, arq);
+        fwrite(auxI->tempo, sizeof(char), strlen(auxI->tempo), arq);
+
+        tam = strlen(auxI->ingredientes);
+        fwrite(&tam, sizeof(int), 1, arq);
+        fwrite(auxI->ingredientes, sizeof(char), strlen(auxI->ingredientes), arq);
+
+        tam = strlen(auxI->modo);
+        fwrite(&tam, sizeof(int), 1, arq);
+        fwrite(auxI->modo, sizeof(char), strlen(auxI->modo), arq);
+
+        tam = strlen(auxI->criador);
+        fwrite(&tam, sizeof(int), 1, arq);
+        fwrite(auxI->criador, sizeof(char), strlen(auxI->criador), arq);
+
+        fwrite(&auxI->nota, sizeof(float), 1, arq);
+
+        fwrite(&auxI->vezes, sizeof(int), 1, arq);
+
         auxiliar = auxiliar->proximo;
     } while (auxiliar != l); 
 }
+
 void alocar(Lista** obj){
     *obj = malloc(sizeof(Lista));
     (*obj)->i = malloc(sizeof(Info));

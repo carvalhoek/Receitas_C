@@ -19,25 +19,10 @@ int main(){
     **/
     FILE* arq = datebankOffnen(nome);
     if(arq != NULL){
-        printf("to no if");
-        scanf("%c",&a);
-        alocar(&receitaPrimeira);
-        alocar(&receitaAtual);
-        restaurar(arq,&receitaPrimeira);
-        imprimeAtual(receitaPrimeira);
-        printf("restaurei");
-        scanf("%c",&a);
-        printf("huuuuuum");
-        scanf("%c",&a);
-        fclose(arq);
-        printf("fechei");
-        scanf("%c",&a);
-        remove("datei.kr");
-        printf("removi");
-        scanf("%c",&a);
+        restaurar(arq, &receitaPrimeira);
         receitaAtual = receitaPrimeira;
-        printf("igualei 2.0");
-        scanf("%c",&a);
+        fclose(arq);
+        remove("datei.kr");
     }
     do{
         menu(&escolha, receitaAtual);
@@ -85,6 +70,7 @@ int main(){
 
     arq = neueDatenbank(nome);
     gravar(arq,receitaPrimeira);
+    fclose(arq);
     libera(receitaAtual);
     
     return 0;

@@ -34,10 +34,12 @@ void datenbankSchreiben(FILE*arq,int type, void*data){
 	switch (type)
 	{
 	case 7:
+		printf("escrevi um inteiro\n");
 		fwrite(&type,sizeof(int),1,arq);
 		fwrite(data,sizeof(int),1,arq);
 		break;
 	case 13:
+		printf("escrevi um float\n");
 		fwrite(&type,sizeof(int),1,arq);
 		fwrite(data,sizeof(float),1,arq);
 		break;
@@ -46,6 +48,7 @@ void datenbankSchreiben(FILE*arq,int type, void*data){
 		fwrite(data,sizeof(char),1,arq);
 		break;
 	case 16:
+		printf("escrevi uma string\n");
 		str = malloc(sizeof(data)/**sizeof(char)*/);
 		str = (char*)data;
 		len = strlen(str);
@@ -71,10 +74,14 @@ void* datebankLesen(FILE *arq){
 	fread(&id,sizeof(int),1,arq);
 	switch (id){
 	case 7:
+		printf("\naoba int\n");
 		fread(point,sizeof(int),1,arq);
 		return point;
 	case 13:
+		printf("\naoba float\n");
 		fread(point,sizeof(float),1,arq);
+		printf("Oq ta escrito\n");
+		printf("leu %f\n", *((float*)point));
 		return point;
 	case 3:
 		fread(point,sizeof(char),1,arq);
@@ -83,6 +90,7 @@ void* datebankLesen(FILE *arq){
 		fread(&len,sizeof(int),1,arq);
 		dataS = stringZuweisung(len);
 		fread(dataS,sizeof(char),len,arq);
+		dataS[len] = '\0';
 		return dataS;
 	default:
 		printf("erro na leitura, codigo de tipo errado");
