@@ -165,7 +165,6 @@ void imprimeAtual(Lista* l){ //FEITO
     **/
     Info* aux = l->i;
     printf("Receita: %s\n", aux->titulo);
-    puts(aux->titulo);
     printf("Tempo de preparo: %s\n", aux->tempo);
     printf("Ingredientes: %s\n", aux->ingredientes);
     printf("Modo de preparo: %s\n", aux->modo);
@@ -180,6 +179,16 @@ int tamLista(Lista* l){
      * loop infinito
      * condicao de parada
     **/
+
+    int i = 0;
+    Lista* aux = l;
+
+    do{
+        i++;
+        aux = aux->proximo;
+    }while(aux != l);
+
+    return i;
 }
 
 void menu(char* e, Lista* l){
@@ -331,15 +340,9 @@ void restaurar(FILE* arq, Lista** l){
      *          float nota
      *          int vezes
     **/
-    
-    char fodac;
 
-    
-
-    Lista* primeiro = criar('r');
-    Lista* ultimo = primeiro;
-
-    Info* auxI = primeiro->i;
+    Lista* primeiro;
+    Lista* ultimo;
 
     //char* auxS;
 
@@ -381,31 +384,12 @@ void restaurar(FILE* arq, Lista** l){
     scanf("%c", &fodac);//9*/
 
     int tamS;
+    int tamL;
+    Info* auxI;
 
-    fread(&tamS, sizeof(int), 1, arq);
-    fread(auxI->titulo, sizeof(char), tamS, arq);
-    auxI->titulo[tamS] = '\0';
-    
-    fread(&tamS, sizeof(int), 1, arq);
-    fread(auxI->tempo, sizeof(char), tamS, arq);
-    auxI->tempo[tamS] = '\0';
-    
-    fread(&tamS, sizeof(int), 1, arq);
-    fread(auxI->ingredientes, sizeof(char), tamS, arq);
-    auxI->ingredientes[tamS] = '\0';
-    
-    fread(&tamS, sizeof(int), 1, arq);
-    fread(auxI->modo, sizeof(char), tamS, arq);
-    auxI->modo[tamS] = '\0';
-    
-    fread(&tamS, sizeof(int), 1, arq);
-    fread(auxI->criador, sizeof(char), tamS, arq);
-    auxI->criador[tamS] = '\0';
+    fread(&tamL, sizeof(int), 1, arq);
 
-    fread(&auxI->nota, sizeof(float), 1, arq);
-    fread(&auxI->vezes, sizeof(int), 1, arq);
-
-    while(!feof(arq)){
+    for (int cont = 0; cont < tamL; cont++){
         Lista* auxiliar = criar('r');
 
         auxI = auxiliar->i;
@@ -462,13 +446,17 @@ void restaurar(FILE* arq, Lista** l){
         fread(&auxI->nota, sizeof(float), 1, arq);
         fread(&auxI->vezes, sizeof(int), 1, arq);
 
-        ultimo->proximo = auxiliar;
-        primeiro->anterior = auxiliar;
-        auxiliar->anterior = ultimo;
-        auxiliar->proximo = primeiro;
-        ultimo = auxiliar;
-        if(!feof(arq))
-            break;
+        if(cont != 0){
+            ultimo->proximo = auxiliar;
+            primeiro->anterior = auxiliar;
+            auxiliar->anterior = ultimo;
+            auxiliar->proximo = primeiro;
+            ultimo = auxiliar;
+        }
+        else{
+            primeiro = auxiliar;
+            ultimo = auxiliar;
+        }
 	}
     *l = primeiro;
 }
@@ -490,6 +478,10 @@ void gravar(FILE* arq, Lista* l){
      *      funcao de insercao
     **/
     Lista* auxiliar = l;
+    
+    int tamL = tamLista(l);
+    fwrite(&tamL, sizeof(int), 1, arq);
+    
     do{
         Info* auxI =  auxiliar->i;
 
