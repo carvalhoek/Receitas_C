@@ -15,8 +15,6 @@ typedef struct posicao pos;
 
 Lista* acessarP(pos* listas);
 
-Lista* acessarU(pos* listas);
-
 Lista* criar(char modo);
 
 pos* insercao(pos* l);

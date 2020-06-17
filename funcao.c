@@ -28,10 +28,6 @@ Lista* acessarP(pos* listas){
     return listas->primeiro;
 }
 
-Lista* acessarU(pos* listas){
-    return listas->ultimo;
-}
-
 Lista* criar(char modo){
     /**
      * parametro pra saber se eh feito durant a insercao ou ao restaurar
@@ -155,12 +151,11 @@ Lista* retira(Lista* l, pos* p){
             }
 
             Lista* aux = l->proximo;
-            Lista* temp = l;
 
-            aux->anterior = temp->anterior;
-            temp->anterior->proximo = aux;
+            aux->anterior = l->anterior;
+            l->anterior->proximo = aux;
 
-            free(temp);
+            free(l);
 
             return aux;
         }
