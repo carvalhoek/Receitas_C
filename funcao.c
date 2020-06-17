@@ -310,11 +310,10 @@ void modificar(Lista* l){
     char esc;
 
     do{
-        printf("1 - Nome da receita: %s\n", aux->titulo);
-        printf("2 - Tempo de preparo: %s\n", aux->tempo);
-        printf("3 - Ingredientes: %s\n", aux->ingredientes);
-        printf("4 - Modo de preparo: %s\n", aux->modo);
-        printf("5 - Nome do criador: %s\n", aux->criador);
+        printf("1 - Tempo de preparo: %s\n", aux->tempo);
+        printf("2 - Ingredientes: %s\n", aux->ingredientes);
+        printf("3 - Modo de preparo: %s\n", aux->modo);
+        printf("4 - Nome do criador: %s\n", aux->criador);
 
         printf("\nDigite a opcao da informacao sera modificada (0 para sair): ");
         scanf("%c", &esc);
@@ -322,22 +321,18 @@ void modificar(Lista* l){
 
         switch(esc){
             case '1':
-                printf("\nNovo titulo: ");
-                gets(aux->titulo);
-                break;
-            case '2':
                 printf("\nNovo tempo de preparo: ");
                 gets(aux->tempo);
                 break;
-            case '3':
+            case '2':
                 printf("\nNovos ingredientes: ");
                 gets(aux->ingredientes);
                 break;
-            case '4':
+            case '3':
                 printf("\nNovo modo de preparo: ");
                 gets(aux->modo);
                 break;
-            case '5':
+            case '4':
                 printf("\nNovo nome do criador: ");
                 gets(aux->criador);
                 break;
